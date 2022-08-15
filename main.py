@@ -10,5 +10,4 @@ for line in f:
     line_as_array = np.array(line.split(), dtype="int64")
     list.append(line_as_array)
 data = np.array(list)
-print(data)
 f.close()
