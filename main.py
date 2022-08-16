@@ -19,7 +19,10 @@ def linear_mult(data):
     p = a*b*c*d
 #    assert(p.shape[0] == data.shape[0])
 #    assert(p.shape[1] == data.shape[1]-3)
-    return np.max(p)
+    try:
+        return np.max(p)
+    except ValueError:
+        return
 
 def diagonal_mult(data):
     a = data[0:-3,0:-3]
@@ -29,13 +32,21 @@ def diagonal_mult(data):
     p = a*b*c*d
 #    assert(p.shape[0] == data.shape[0]-3)
 #    assert(p.shape[1] == data.shape[1]-3)
-    return np.max(p)
+    try:
+        return np.max(p)
+    except ValueError:
+        return
 
-print(max(
-    linear_mult(num_grid),
-    linear_mult(num_grid.T[::-1]),
-    diagonal_mult(num_grid),
-    diagonal_mult(num_grid.T[::-1])
-))
+try:
+    print(max(list(filter(None, 
+        [
+            linear_mult(num_grid),
+            linear_mult(num_grid.T[::-1]),
+            diagonal_mult(num_grid),
+            diagonal_mult(num_grid.T[::-1]),
+        ]
+        ))))
+except ValueError:
+    print("Your input contains no quadsequences.")
 
             
